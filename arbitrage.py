@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 class Arbitrage:
     def __init__(self, file_path = 'C:\\chromedriver.exe'):
         self.file_path = file_path
+        print('Scraping rates')
         self.getRates()
 
 
@@ -89,7 +90,10 @@ class Arbitrage:
     def findArbitrage(self, quantity = 1):
         baseCoins = ['BTC', 'PAX', 'ETH', 'USDC']
         self.getUSDPrices()
+        transactionList = []
+        print('Searching for arbitrage opportunities')
         for coin in baseCoins:
+            transactionList.append(str(f" Arbitrage using {quantity} {coin}"))
             df = self.df.copy()
             df, pairList = self.prepareData(df = df, initialCoin = coin)
             suma = 0
@@ -101,14 +105,16 @@ class Arbitrage:
                 if add > 0:
                     suma += add
                     quantity += add
-                    print(f'{n} operation: {coin} -> {i[0]} -> {i[1]} -> {coin}: {round(add, 5)} {coin}')
+                    transactionList.append(str(f'        {n} operation: {coin} -> {i[0]} -> {i[1]} -> {coin}: {round(add, 5)} {coin}'))
                     n += 1
+            if round(suma * float(self.pricesUSD[coin]), 2) > 0:
+                transactionList.append(str(""))
+                transactionList.append(str(f' Obtained: {round(suma * float(self.pricesUSD[coin]), 2)} USD by {n} triangular transactions using cummulated {coin} asset'))
+                transactionList.append(str(""))
+                transactionList.append(str('--------------------------------------'))
+                transactionList.append(str(""))
 
-            print()
-            print(f'Obtained: {round(suma * float(self.pricesUSD[coin]), 2)} USD by {n} triangular transactions using cummulated {coin} asset')
-            print()
-            print('--------------------------------------')
-            print()
+        return transactionList
 
 
 # # Instantiate an object of type Arbitrage (with path to chromedriver.exe on your machine)
