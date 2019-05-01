@@ -3,6 +3,7 @@ from selenium import webdriver
 import itertools
 import time
 import re
+import matplotlib.pyplot as plt
 
 class CryptoHistory():
     def __init__(self, file_path = 'C:\\chromedriver.exe'):
@@ -37,7 +38,7 @@ class CryptoHistory():
 
     def currHistory(self, url):
         self.browser.get(url)
-        time.sleep(5)
+#         time.sleep(5)
         exchange_lists = []
         curr_tab = self.browser.find_elements_by_xpath('//table[@class="table"]//tr')
         exchange_lists = [(td.text for td in tr.find_elements_by_xpath(".//*[self::td or self::th]")) for tr in curr_tab]
@@ -53,17 +54,30 @@ class CryptoHistory():
     def historyToDataFrames(self):
         prices = []
         volumes = []
+
         for url in self.urls:
             price, volume = self.currHistory(url)
             prices.append(price)
             volumes.append(volume)
+
         df_prices = pd.DataFrame(prices).transpose()
         ratesColnames = [s + ' rate' for s in self.currencyNames]
         df_prices.columns = ratesColnames
         df_volumes = pd.DataFrame(volumes).transpose()
         volumesColnames = [s + ' volume' for s in self.currencyNames]
         df_volumes.columns = volumesColnames
-        return df_prices, df_volumes
 
-testObject = CryptoHistory(file_path = 'C:\\chromedriver.exe')
-testObject.historyToDataFrames()
+        df_prices = df_prices.apply(lambda x: x.str.replace(',','.').astype(float))
+        self.df_prices = df_prices
+        df_volumes = df_volumes.apply(lambda x: x.str.replace(',','.').astype(float))
+        self.df_volumes = df_volumes
+
+    def plotHistoryData(self):
+        self.df_prices.plot(title = 'Currency rates')
+        plt.show()
+        self.df_volumes.plot(title = 'Currency volumes')
+        plt.show()
+
+# testObject = CryptoHistory(file_path = 'C:\\chromedriver.exe')
+# testObject.historyToDataFrames()
+# testObject.plotHistoryData()

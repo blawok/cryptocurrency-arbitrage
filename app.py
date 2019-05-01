@@ -3,8 +3,15 @@ import pandas as pd
 from PIL import Image, ImageTk
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+import itertools
+import time
+import re
+import matplotlib.pyplot as plt
 
 from arbitrage import Arbitrage
+from historyScraper import CryptoHistory
 
 class Window(Frame):
 
@@ -28,8 +35,8 @@ class Window(Frame):
         menu = Menu(self.master)
         self.master.config(menu=menu)
         edit = Menu(menu)
-        edit.add_command(label="Find triangular arbitrage", command=self.showText)
-        menu.add_cascade(label="Find arbitrage", menu=edit)
+        edit.add_command(label="Browse currency history", command=self.showHistory)
+        menu.add_cascade(label="Options", menu=edit)
 
         button = Button(self, text="Find triangular arbitrage", command=self.showText)
         button.place(relx = 0.1, rely = 0.3, anchor="center")
@@ -57,6 +64,24 @@ class Window(Frame):
         button = Button(self, text="Clear", command=self.clearOutput)
         button.place(relx = 0.1, rely = 0.3, anchor="center")
         button.pack()
+
+    def showHistory(self):
+        load = Image.open("dolla.png")
+        render = ImageTk.PhotoImage(load)
+        img = Label(self, image=render)
+        img.image = render
+        img.place(x=0, y=0)
+
+        testObject = CryptoHistory(file_path = 'C:\\chromedriver.exe')
+        testObject.historyToDataFrames()
+        # testObject.plotHistoryData()
+
+        figure1 = plt.Figure(figsize=(6,5), dpi=100)
+        ax1 = figure1.add_subplot(111)
+        bar1 = FigureCanvasTkAgg(figure1, self)
+        bar1.get_tk_widget().pack()
+        testObject.df_prices.plot(title='Currency rates', ax=ax1)
+        # testObject.plotHistoryData()
 
     def clearOutput(self):
         for widget in self.winfo_children():
