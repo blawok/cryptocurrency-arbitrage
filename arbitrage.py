@@ -1,12 +1,12 @@
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-
+import time
 
 class Arbitrage:
+
     def __init__(self, file_path = 'C:\\chromedriver.exe'):
         self.file_path = file_path
-        print('Scraping rates')
         self.getRates()
 
 
@@ -91,7 +91,6 @@ class Arbitrage:
         baseCoins = ['BTC', 'PAX', 'ETH', 'USDC']
         self.getUSDPrices()
         transactionList = []
-        print('Searching for arbitrage opportunities')
         for coin in baseCoins:
             transactionList.append(str(f" Arbitrage using {quantity} {coin}"))
             df = self.df.copy()
@@ -113,7 +112,8 @@ class Arbitrage:
                 transactionList.append(str(""))
                 transactionList.append(str('--------------------------------------'))
                 transactionList.append(str(""))
-
+        time.sleep(5)
+        self.browser.quit()
         return transactionList
 
 

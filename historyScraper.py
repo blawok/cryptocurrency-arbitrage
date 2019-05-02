@@ -71,6 +71,8 @@ class CryptoHistory():
         self.df_prices = df_prices
         df_volumes = df_volumes.apply(lambda x: x.str.replace(',','.').astype(float))
         self.df_volumes = df_volumes
+        time.sleep(5)
+        self.browser.quit()
 
     def plotHistoryData(self):
         self.df_prices.plot(title = 'Currency rates')
@@ -78,6 +80,9 @@ class CryptoHistory():
         self.df_volumes.plot(title = 'Currency volumes')
         plt.show()
 
+# # Instantiate an object of type CryptoHistory (with path to chromedriver.exe on your machine)
 # testObject = CryptoHistory(file_path = 'C:\\chromedriver.exe')
+# get hitorical data for initital coins
 # testObject.historyToDataFrames()
+# plot that data
 # testObject.plotHistoryData()
