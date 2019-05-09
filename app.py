@@ -54,7 +54,7 @@ class CryptoArbitrage(Frame):
         transactionList = kA.findArbitrage(quantity = 100)
 
         scrollbar = Scrollbar(self, orient=VERTICAL)
-        listbox = Listbox(self, width=90, height=25, yscrollcommand=scrollbar.set)
+        listbox = Listbox(self, width=110, height=35, yscrollcommand=scrollbar.set)
         scrollbar.config(command=listbox.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
         for listId, transaction in enumerate(transactionList):
@@ -65,6 +65,7 @@ class CryptoArbitrage(Frame):
         button = Button(self, text="Clear", command=self.clearOutput)
         button.place(relx = 0.1, rely = 0.3, anchor="center")
         button.pack()
+
 
     def showHistory(self):
         load = Image.open("trading.png")
@@ -81,6 +82,11 @@ class CryptoArbitrage(Frame):
 
         figure1 = plt.Figure(figsize=(6,5), dpi=100)
         ax1 = figure1.add_subplot(111)
+        ax1.set(
+            xlabel = "Time (last 30 days)",
+            ylabel = "Price (in USD)",
+            xticklabels= []
+            )
         bar1 = FigureCanvasTkAgg(figure1, self)
         bar1.get_tk_widget().pack()
         self.df_prices.plot(title='Currency rates', ax=ax1)
@@ -106,6 +112,11 @@ class CryptoArbitrage(Frame):
 
         figure1 = plt.Figure(figsize=(6,5), dpi=100)
         ax1 = figure1.add_subplot(111)
+        ax1.set(
+            xlabel = "Time (last 30 days)",
+            ylabel = "Number of operations (in bln)",
+            xticklabels= []
+            )
         bar1 = FigureCanvasTkAgg(figure1, self)
         bar1.get_tk_widget().pack()
         self.df_volumes.plot(title='Currency volumes', ax=ax1)
@@ -131,6 +142,11 @@ class CryptoArbitrage(Frame):
 
         figure1 = plt.Figure(figsize=(6,5), dpi=100)
         ax1 = figure1.add_subplot(111)
+        ax1.set(
+            xlabel = "Time (last 30 days)",
+            ylabel = "Price (in USD)",
+            xticklabels= []
+            )
         bar1 = FigureCanvasTkAgg(figure1, self)
         bar1.get_tk_widget().pack()
         self.df_prices.plot(title='Currency rates', ax=ax1)

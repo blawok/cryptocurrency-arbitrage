@@ -97,21 +97,24 @@ class Arbitrage:
             df, pairList = self.prepareData(df = df, initialCoin = coin)
             suma = 0
             n = 1
-            quantity = quantity
+            quantity2 = quantity
             for i in pairList:
-                add = self.triangularArbitrage(df = df, inputSet = (quantity, coin),
+                add = self.triangularArbitrage(df = df, inputSet = (quantity2, coin),
                                                firstTransaction = i[0], secondTransaction = i[1], fee = 0.0004)
                 if add > 0:
                     suma += add
-                    quantity += add
+                    quantity2 += add
                     transactionList.append(str(f'        {n} operation: {coin} -> {i[0]} -> {i[1]} -> {coin}: {round(add, 5)} {coin}'))
                     n += 1
             if round(suma * float(self.pricesUSD[coin]), 2) > 0:
                 transactionList.append(str(""))
                 transactionList.append(str(f' Obtained: {round(suma * float(self.pricesUSD[coin]), 2)} USD by {n} triangular transactions using cummulated {coin} asset'))
+                transactionList.append(str(f"Percentage profit achived: {round(((suma)/100)*100,2)}%"))
                 transactionList.append(str(""))
                 transactionList.append(str('--------------------------------------'))
                 transactionList.append(str(""))
+            else:
+                transactionList.append(str("No arbitrage possibilities for this cryptocurrency at this moment."))
         time.sleep(5)
         self.browser.quit()
         return transactionList

@@ -82,7 +82,7 @@ class CryptoHistory():
 
 # # Instantiate an object of type CryptoHistory (with path to chromedriver.exe on your machine)
 # testObject = CryptoHistory(file_path = 'C:\\chromedriver.exe')
-# get hitorical data for initital coins
+# get historical data for initital coins
 # testObject.historyToDataFrames()
 # plot that data
 # testObject.plotHistoryData()
