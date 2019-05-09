@@ -92,7 +92,7 @@ class Arbitrage:
         self.getUSDPrices()
         transactionList = []
         for coin in baseCoins:
-            transactionList.append(str(f" Arbitrage using {quantity} {coin}"))
+            transactionList.append(str(f" Arbitrage using {quantity} {coin} -- {round(float(max(self.df.VolumePerc[self.df.Numerator == coin])), 2)} % of market daily volume"))
             df = self.df.copy()
             df, pairList = self.prepareData(df = df, initialCoin = coin)
             suma = 0
@@ -117,7 +117,9 @@ class Arbitrage:
         return transactionList
 
 
-# # Instantiate an object of type Arbitrage (with path to chromedriver.exe on your machine)
+# Instantiate an object of type Arbitrage (with path to chromedriver.exe on your machine)
 # kA = Arbitrage('C:\\chromedriver.exe')
-# # look for arbitrage opportunities on BitMax exchange (set the desired, initial quantity of currencies)
+# look for arbitrage opportunities on BitMax exchange (set the desired, initial quantity of currencies)
 # kA.findArbitrage(quantity = 100)
+# kA.getRates()
+# print(max(kA.df.VolumePerc[kA.df.Numerator == 'USDC']))

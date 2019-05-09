@@ -26,7 +26,7 @@ class CryptoArbitrage(Frame):
         self.master.title("Cryptocurrency arbitrage")
         self.pack(fill=BOTH, expand=1)
 
-        load = Image.open("dolla.png")
+        load = Image.open("trading.png")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
@@ -44,7 +44,7 @@ class CryptoArbitrage(Frame):
         button.pack()
 
     def showText(self):
-        load = Image.open("dolla.png")
+        load = Image.open("trading.png")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
@@ -67,7 +67,7 @@ class CryptoArbitrage(Frame):
         button.pack()
 
     def showHistory(self):
-        load = Image.open("dolla.png")
+        load = Image.open("trading.png")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
@@ -98,7 +98,7 @@ class CryptoArbitrage(Frame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        load = Image.open("dolla.png")
+        load = Image.open("trading.png")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
@@ -123,7 +123,7 @@ class CryptoArbitrage(Frame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        load = Image.open("dolla.png")
+        load = Image.open("trading.png")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
@@ -147,7 +147,7 @@ class CryptoArbitrage(Frame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        load = Image.open("dolla.png")
+        load = Image.open("trading.png")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
@@ -159,6 +159,6 @@ class CryptoArbitrage(Frame):
 
 
 top = Tk()
-top.geometry("700x600")
+top.geometry("1000x700")
 app = CryptoArbitrage(top, "C:\\chromedriver.exe")
 top.mainloop()
