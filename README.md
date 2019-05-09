@@ -8,6 +8,9 @@ Clone repo by:
 git clone https://github.com/thormic/CryptocurrencyArbitrage.git
 ```
 
+```bash
+pip install -r requirements.txt
+```
 Download and save chromedriver.exe on: "C:\\chromedriver.exe"
 
 Go to repo path and run: 
