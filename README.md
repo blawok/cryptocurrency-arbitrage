@@ -27,4 +27,4 @@ python app.py
 
 ## Disclaimer
 
-This is only an experiment, not a professional app that can be commercially used. Results above could be obtained only in ideal environment and under the assumption that all the pairs of the cryptocurrencies can be liquidated almost immediatly and market such as BitMax does not prevent usage of trading bots.
+This is only an experiment, not an app that can be commercially used. Results above could be obtained only in ideal environment and under the assumption that all the pairs of the cryptocurrencies can be liquidated almost immediatly and market such as BitMax does not prevent usage of trading bots.
